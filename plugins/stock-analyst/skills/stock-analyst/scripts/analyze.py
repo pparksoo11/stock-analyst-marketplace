@@ -18,6 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import indicators as ind
 import targets as tg
+import scoring as sc
 from kis_client import KISClient
 
 TF_LABEL = {"D": "일봉", "W": "주봉", "M": "월봉", "Y": "연봉"}
@@ -31,7 +32,8 @@ def analyze_ticker(client: KISClient, code: str, name: str | None = None,
         "name": name or quote.get("name"),
         "quote": quote,
         "timeframes": {},
-        "disclaimer": "지표 계산 결과이며 매매 권유가 아님. 예측이 아니라 현재 상태의 정량 요약임.",
+        "disclaimer": ("지표·뉴스 기반 예측치를 포함한 정량 분석 결과이며 확정된 미래를 "
+                       "보장하지 않음. 최종 매매 판단과 그 결과는 사용자 본인 책임."),
     }
     day_atr = None
     day_levels = None
@@ -49,6 +51,8 @@ def analyze_ticker(client: KISClient, code: str, name: str | None = None,
             day_levels = summ.get("levels")
     # 목표가 계산에 쓸 부가정보
     result["_enrich"] = {"atr": day_atr, "levels": day_levels}
+    # 결정론적 방향성 예측(단기/중기). 서술은 Claude가, 숫자는 scoring.py가 책임진다.
+    result["forecast"] = sc.compute_all_horizons(result)
     return result
 
 

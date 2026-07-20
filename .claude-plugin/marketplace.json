@@ -8,8 +8,8 @@
     {
       "name": "stock-analyst",
       "source": "./plugins/stock-analyst",
-      "description": "한국 주식(KOSPI/KOSDAQ) 기술적 분석 · 뉴스 호재/악재 정리 · 규칙 기반 목표가/손절가 계산 (KIS Open API). 읽기·분석 전용, 매매 기능 없음.",
-      "version": "1.0.0",
+      "description": "한국 주식(KOSPI/KOSDAQ) 기술적 분석 · 결정론적 방향성 예측(단기/중기 시나리오 확률) · 뉴스 호재/악재 정리 · 규칙 기반 목표가/손절가 계산 (KIS Open API). 답변 전 검증 AI 게이트 통과. 읽기·분석 전용, 매매 기능 없음.",
+      "version": "1.1.0",
       "category": "finance",
       "keywords": ["stock", "korea", "kospi", "kosdaq", "kis", "technical-analysis"]
     }
