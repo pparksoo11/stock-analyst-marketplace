@@ -1,0 +1,17 @@
+{
+  "name": "yeonsu-tools",
+  "owner": {
+    "name": "연수"
+  },
+  "description": "개인용 Claude Code 플러그인 모음",
+  "plugins": [
+    {
+      "name": "stock-analyst",
+      "source": "./plugins/stock-analyst",
+      "description": "한국 주식(KOSPI/KOSDAQ) 기술적 분석 · 뉴스 호재/악재 정리 · 규칙 기반 목표가/손절가 계산 (KIS Open API). 읽기·분석 전용, 매매 기능 없음.",
+      "version": "1.0.0",
+      "category": "finance",
+      "keywords": ["stock", "korea", "kospi", "kosdaq", "kis", "technical-analysis"]
+    }
+  ]
+}

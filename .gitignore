@@ -1,0 +1,7 @@
+**/config/credentials.yaml
+**/config/holdings.yaml
+**/.kis/
+__pycache__/
+*.pyc
+.venv/
+.claude/

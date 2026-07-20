@@ -1,0 +1,10 @@
+{
+  "name": "stock-analyst",
+  "description": "한국 주식(KOSPI/KOSDAQ) 종목을 KIS Open API로 분석. 일/주/월/연봉 기술적 지표 계산, 뉴스 호재/악재 정리, 규칙 기반 목표가/손절가 계산. 대화로 '삼성전자 분석해줘'라고 하면 자동 실행. 읽기·분석 전용이며 매매 주문 기능은 없음.",
+  "version": "1.0.0",
+  "author": {
+    "name": "연수"
+  },
+  "license": "MIT",
+  "keywords": ["stock", "korea", "kospi", "kosdaq", "kis-api", "technical-analysis", "finance"]
+}

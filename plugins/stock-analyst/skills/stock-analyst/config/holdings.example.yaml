@@ -1,0 +1,23 @@
+# 이 파일을 holdings.yaml 로 복사한 뒤 채우세요. (--portfolio 모드에서 사용)
+# --balance 모드를 쓰면 보유종목은 KIS 잔고에서 자동으로 가져오고,
+# 이 파일의 rules 만 목표가/손절 규칙으로 적용됩니다.
+
+# 목표가/손절가 계산 규칙 — 본인 성향에 맞게 조정
+rules:
+  target_conservative_pct: 10.0   # 보수적 목표 수익률 %
+  target_aggressive_pct: 25.0     # 공격적 목표 수익률 %
+  stop_loss_pct: 8.0              # 손절 손실률 %
+  basis: "avg_price"             # avg_price(매입가 기준) 또는 current(현재가 기준)
+  atr_stop_mult: 2.0             # ATR 손절 배수 (손절 = 현재가 - 2xATR)
+  atr_target_mult: 4.0           # ATR 목표 배수 (목표 = 현재가 + 4xATR)
+
+# 수동 보유 목록 (--portfolio 모드). current_price 는 비워두면 자동조회.
+holdings:
+  - code: "005930"      # 삼성전자
+    name: "삼성전자"
+    avg_price: 70000
+    quantity: 10
+  - code: "035720"      # 카카오
+    name: "카카오"
+    avg_price: 48000
+    quantity: 20
