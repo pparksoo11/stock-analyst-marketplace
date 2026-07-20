@@ -29,6 +29,7 @@ import yaml
 REAL_BASE = "https://openapi.koreainvestment.com:9443"
 MOCK_BASE = "https://openapivts.koreainvestment.com:29443"
 TOKEN_CACHE = Path.home() / ".kis_token.json"
+MIN_CALL_INTERVAL = 0.25  # 타임프레임/종목 간 무지연 연타로 500 응답이 나와 전 호출 공통 페이싱 적용
 
 
 class KISClient:
@@ -41,6 +42,7 @@ class KISClient:
         self.base = REAL_BASE if self.env == "real" else MOCK_BASE
         self._token = None
         self._token_exp = 0
+        self._last_call = 0.0
 
     # ---------------- config ----------------
     @staticmethod
@@ -121,7 +123,17 @@ class KISClient:
 
     def _get(self, path: str, tr_id: str, params: dict) -> dict:
         url = f"{self.base}{path}"
-        r = requests.get(url, headers=self._headers(tr_id), params=params, timeout=10)
+        attempts = 3  # KIS가 정상 페이싱에도 간헐적 500을 반환해 서버측 일시 오류를 재시도로 흡수
+        for attempt in range(attempts):
+            wait = MIN_CALL_INTERVAL - (time.time() - self._last_call)
+            if wait > 0:
+                time.sleep(wait)
+            r = requests.get(url, headers=self._headers(tr_id), params=params, timeout=10)
+            self._last_call = time.time()
+            if r.status_code >= 500 and attempt < attempts - 1:
+                time.sleep(0.5 * (attempt + 1))
+                continue
+            break
         r.raise_for_status()
         j = r.json()
         if str(j.get("rt_cd", "0")) != "0":
